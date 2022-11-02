@@ -1,4 +1,4 @@
-package Lab1.Playfair;
+package Implementations.ClassicalCiphers.Playfair;
 
 import java.util.*;
 

@@ -87,9 +87,9 @@ private String removeDuplicates(String someString){
 To encrypt and decrypt the messages, the same functions were used as in the previous cipher.
 
 
-## Vigenere cipher
+## Implementations.ClassicalCiphers.Vigenere cipher
 
-To encrypt the message using the Vigenere cipher, the key will be copied until it matches the length of the given message.
+To encrypt the message using the Implementations.ClassicalCiphers.Vigenere cipher, the key will be copied until it matches the length of the given message.
 For this, the function *extendKey()* was added.
 
 ```java
@@ -148,9 +148,9 @@ public String decryptMessage(final String encryptedMessage){
 }
 ```
 
-## Playfair cipher
+## Implementations.ClassicalCiphers.Playfair cipher
 
-To encrypt the message using the Playfair cipher, the key will be added at the front of the alphabet and will go throught the *removeDuplicates()* function.
+To encrypt the message using the Implementations.ClassicalCiphers.Playfair cipher, the key will be added at the front of the alphabet and will go throught the *removeDuplicates()* function.
 After that, the alphabet will be transformed into an array of size *5x5* (letter *j* will be removed to fit the alphabet into the array). The function that Transforms the alphabet to an array:
 
 ```java

@@ -1,4 +1,4 @@
-package Lab1.CaesarCipherB;
+package Implementations.ClassicalCiphers.CaesarCipherB;
 
 import java.util.LinkedHashSet;
 import java.util.Set;

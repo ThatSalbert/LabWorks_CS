@@ -1,4 +1,4 @@
-package Lab1.Vigenere;
+package Implementations.ClassicalCiphers.Vigenere;
 
 public class Vigenere {
     private String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

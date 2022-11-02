@@ -1,4 +1,4 @@
-package Lab1.CaesarCipherA;
+package Implementations.ClassicalCiphers.CaesarCipherA;
 
 public class CaesarCipherA {
     private static final String alphabet = "abcdefghijklmnopqrstuvwxyz";
