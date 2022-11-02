@@ -63,7 +63,7 @@ $E = m^{e} mod N$
 
 Decryption is done using the formula:
 
-$D = E^{D} mod N$
+$D = E^{d} mod N$
 ```java
 public byte[] encryptMessage(byte[] message){
         byte[] encryptedMessage = new BigInteger(message).modPow(this.e, this.n).toByteArray();
