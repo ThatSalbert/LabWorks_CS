@@ -3,14 +3,19 @@ import Implementations.ClassicalCiphers.CaesarCipherA.CaesarCipherA;
 import Implementations.ClassicalCiphers.CaesarCipherB.CaesarCipherB;
 import Implementations.ClassicalCiphers.Vigenere.Vigenere;
 import Implementations.ClassicalCiphers.Playfair.Playfair;
+import Implementations.Hashing.Database;
 import Implementations.SymmetricCiphers.RC4.RC4;
 import Implementations.SymmetricCiphers.SDES.SDES;
 
+import javax.xml.bind.DatatypeConverter;
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchAlgorithmException {
         CaesarCipherA cipherA = new CaesarCipherA(16);
         String encryptedMessageCaesarA = cipherA.encryptMessage("Attack and defend");
         System.out.println("\u001B[32m" + "Caesar Cipher A Encrypted Message: " + "\u001B[0m" + encryptedMessageCaesarA);
@@ -72,9 +77,41 @@ public class Main {
         RSA RSAcipher = new RSA(BigInteger.probablePrime(512, new Random()), BigInteger.probablePrime(512, new Random()));
         String messageToEncryptRSA = "Some random text for RSA.";
         byte[] encryptedMessageRSA = RSAcipher.encryptMessage(messageToEncryptRSA.getBytes());
-        System.out.println("\u001B[32m" + "RSA Cipher Encrypted Message: " + "\u001B[0m" + new String(encryptedMessageRSA));
+        System.out.println("\u001B[32m" + "RSA Cipher Encrypted Message: " + "\u001B[0m" + RSA.bytesToString(encryptedMessageRSA));
         byte[] decryptedMessageRSA = RSAcipher.decryptMessage(encryptedMessageRSA);
         System.out.println("\u001B[32m" + "RSA Cipher Decrypted Message: " + "\u001B[0m" + new String(decryptedMessageRSA));
 
+        System.out.println("\n" + "\u001B[32m" + "Laboratory Work 4: Hashing and Digital Signatures:" + "\u001B[0m");
+        int max = 99999;
+        int min = 10000;
+        int range = max - min + 1;
+
+        Database database;
+        Database profile1 = Database.getData((int) ((Math.random() * range) + min), "basicusername1", "somepassword");
+        Database profile2 = Database.getData((int) ((Math.random() * range) + min), "basicusername2", "somepassword2");
+        Database profile3 = Database.getData((int) ((Math.random() * range) + min), "thisisconfusing", "ilovepasswords");
+
+        Database.getAllData();
+
+        String message = "This is a test message.";
+
+        System.out.println("\n" + "\u001B[32m" + "Original message: " + "\u001B[0m" + message);
+        byte[] encryptedMessage = RSAcipher.encryptMessage(message.getBytes());
+        System.out.println("\u001B[32m" + "Encrypted Message (RSA): " + "\u001B[0m" + RSA.bytesToString(encryptedMessage));
+        byte[] decryptedMessage = RSAcipher.decryptMessage(encryptedMessage);
+        System.out.println("\u001B[32m" + "Decrypted Message (RSA): " + "\u001B[0m" + new String(decryptedMessage));
+        MessageDigest digest1 = MessageDigest.getInstance("SHA-256");
+
+        byte[] hashedMessage1 = digest1.digest(message.getBytes(StandardCharsets.UTF_8));
+        System.out.println("\u001B[32m" + "Hashed original message: " + "\u001B[0m" + DatatypeConverter.printHexBinary(hashedMessage1));
+        MessageDigest digest2 = MessageDigest.getInstance("SHA-256");
+        byte[] hashedMessage2 = digest2.digest(new String(decryptedMessage).getBytes(StandardCharsets.UTF_8));
+
+        System.out.println("\u001B[32m" + "Hashed decrypted message: " + "\u001B[0m" + DatatypeConverter.printHexBinary(hashedMessage2));
+        if (DatatypeConverter.printHexBinary(hashedMessage1).equals(DatatypeConverter.printHexBinary(hashedMessage2))){
+            System.out.println("Hashes are the same.");
+        } else {
+            System.out.println("Hashes are not the same.");
+        }
     }
 }
