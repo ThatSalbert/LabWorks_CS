@@ -46,3 +46,19 @@ private String passwordHash(String password) throws NoSuchAlgorithmException {
     return DatatypeConverter.printHexBinary(encodedPassword);
 }
 ```
+
+# Signature Check
+
+For the signature check part of the laboratory work, the original message is being encrypted and decrypted
+using the RSA cipher from the previous laboratory work. The original message is also hashed using the same method
+as described above: using MessageDigest class with the *getInstance("SHA-256")*. The decrypted message is also hashed
+using the same method. 
+
+At the end, the *String.equals()* function is called to check if both hash strings are equal.
+```java
+if (DatatypeConverter.printHexBinary(hashedMessage1).equals(DatatypeConverter.printHexBinary(hashedMessage2))){
+        System.out.println("\u001B[32m" + "Result: " + "\u001B[0m" + "Hashes are the same.");
+    } else {
+        System.out.println("\u001B[32m" + "Result: " + "\u001B[0m" + "Hashes are not the same.");
+}
+```
