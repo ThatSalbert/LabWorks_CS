@@ -4,6 +4,7 @@ import Implementations.ClassicalCiphers.CaesarCipherB.CaesarCipherB;
 import Implementations.ClassicalCiphers.Vigenere.Vigenere;
 import Implementations.ClassicalCiphers.Playfair.Playfair;
 import Implementations.Hashing.Database;
+import Implementations.Hashing.SignatureCheck;
 import Implementations.SymmetricCiphers.RC4.RC4;
 import Implementations.SymmetricCiphers.SDES.SDES;
 
@@ -93,25 +94,6 @@ public class Main {
 
         Database.getAllData();
 
-        String message = "This is a test message.";
-
-        System.out.println("\n" + "\u001B[32m" + "Original message: " + "\u001B[0m" + message);
-        byte[] encryptedMessage = RSAcipher.encryptMessage(message.getBytes());
-        System.out.println("\u001B[32m" + "Encrypted Message (RSA): " + "\u001B[0m" + RSA.bytesToString(encryptedMessage));
-        byte[] decryptedMessage = RSAcipher.decryptMessage(encryptedMessage);
-        System.out.println("\u001B[32m" + "Decrypted Message (RSA): " + "\u001B[0m" + new String(decryptedMessage));
-        MessageDigest digest1 = MessageDigest.getInstance("SHA-256");
-
-        byte[] hashedMessage1 = digest1.digest(message.getBytes(StandardCharsets.UTF_8));
-        System.out.println("\u001B[32m" + "Hashed original message: " + "\u001B[0m" + DatatypeConverter.printHexBinary(hashedMessage1));
-        MessageDigest digest2 = MessageDigest.getInstance("SHA-256");
-        byte[] hashedMessage2 = digest2.digest(new String(decryptedMessage).getBytes(StandardCharsets.UTF_8));
-
-        System.out.println("\u001B[32m" + "Hashed decrypted message: " + "\u001B[0m" + DatatypeConverter.printHexBinary(hashedMessage2));
-        if (DatatypeConverter.printHexBinary(hashedMessage1).equals(DatatypeConverter.printHexBinary(hashedMessage2))){
-            System.out.println("Hashes are the same.");
-        } else {
-            System.out.println("Hashes are not the same.");
-        }
+        new SignatureCheck("This is a basic string.");
     }
 }
